@@ -8,8 +8,8 @@ set -e
 # system.
 export PARALLEL_JOBS=$(nproc)
 
-if [[ -f /opt/ros/indigo/setup.bash ]] ; then
-    source /opt/ros/indigo/setup.bash
+if [[ -f /opt/ros/kinetic/setup.bash ]] ; then
+    source /opt/ros/kinetic/setup.bash
 else
     echo "ROS environment not found, please install it"
     exit 1
@@ -85,7 +85,7 @@ if [ -z $ANDROID_NDK ] ; then
 fi
 
 if [ -z $ROS_DISTRO ] ; then
-    die "HOST ROS ENVIRONMENT NOT FOUND! Did you source /opt/ros/indigo/setup.bash"
+    die "HOST ROS ENVIRONMENT NOT FOUND! Did you source /opt/ros/kinetic/setup.bash"
 fi
 
 [ -d $standalone_toolchain_path ] || run_cmd setup_standalone_toolchain
