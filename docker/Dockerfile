@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM ubuntu:16.04
 MAINTAINER Julian Cerruti <jcerruti@creativa77.com.ar>
 MAINTAINER Gary Servin <gary@creativa77.com.ar>
 
@@ -19,18 +19,19 @@ ENV ANDROID_NDK /opt/android-ndk-r10e
 # Install g++ to avoid "CMAKE_CXX_COMPILER-NOTFOUND was not found." error
 RUN apt-get update && apt-get install -y g++ cmake make
 
-## Install Android SDK
+# Install Android SDK
 #RUN apt-get update && apt-get install -y openjdk-6-jdk lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6 ant
-#RUN wget http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz
-#RUN tar -xvf android-sdk_r23.0.2-linux.tgz -C /opt
-#ENV PATH /opt/android-sdk-linux/tools:/opt/android-sdk-linux/platform-tools:$PATH
-#ENV ANDROID_HOME /opt/android-sdk-linux
-#RUN (while true; do echo 'y'; sleep 2; done) | android update sdk -u -t 2,3,7,8,9,11,13,16,56,57
-#
-## Install Python libraries
-#RUN apt-get install python-lxml -y
-#
-#ENV JAVA_HOME /usr/lib/jvm/java-6-openjdk-amd64/
+RUN apt-get update && apt-get install -y default-jdk lib32z1 lib32ncurses5 lib32stdc++6 ant
+RUN wget http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz
+RUN tar -xvf android-sdk_r23.0.2-linux.tgz -C /opt
+ENV PATH /opt/android-sdk-linux/tools:/opt/android-sdk-linux/platform-tools:$PATH
+ENV ANDROID_HOME /opt/android-sdk-linux
+RUN (while true; do echo 'y'; sleep 2; done) | android update sdk -u -t 2,3,7,8,9,11,13,16,56,57
+
+# Install Python libraries
+RUN apt-get install python-lxml -y
+
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
 # Use ccache
 RUN apt-get update && apt-get install -y ccache
