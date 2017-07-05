@@ -10,11 +10,14 @@ RUN apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C3
 RUN apt-get update && apt-get install --no-install-recommends -y ros-kinetic-ros-base python-wstool
 
 # Install Android NDK
+RUN wget https://dl.google.com/android/ndk/android-ndk-r10d-linux-x86_64.bin
+RUN chmod +x android-ndk-r10d-linux-x86_64.bin
+RUN ./android-ndk-r10d-linux-x86_64.bin -o/opt
 RUN wget https://dl.google.com/android/repository/android-ndk-r10e-linux-x86_64.zip
 RUN unzip android-ndk-r10e-linux-x86_64.zip -d /opt
 
 # Set-up environment
-ENV ANDROID_NDK /opt/android-ndk-r10e
+ENV ANDROID_NDK /opt/android-ndk-r10d
 
 # Install g++ to avoid "CMAKE_CXX_COMPILER-NOTFOUND was not found." error
 RUN apt-get update && apt-get install -y g++ cmake make
