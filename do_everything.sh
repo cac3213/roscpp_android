@@ -161,7 +161,7 @@ if [[ $skip -ne 1 ]] ; then
     apply_patch /opt/roscpp_android/patches/lz4.patch
 
     # Patch collada - Build as static lib
-    apply_patch /opt/roscpp_android/patches/collada_dom.patch
+    #apply_patch /opt/roscpp_android/patches/collada_dom.patch
 
     #  Patch assimp - Build as static lib
     apply_patch /opt/roscpp_android/patches/assimp.patch
@@ -210,63 +210,63 @@ if [[ $skip -ne 1 ]] ; then
 
     # Patch collada_parser - cmake detects mkstemps even though Android does not support it
     # TODO: investigate how to prevent cmake to detect system mkstemps
-    apply_patch /opt/roscpp_android/patches/collada_parser.patch
+    #apply_patch /opt/roscpp_android/patches/collada_parser.patch
 
     # Patch laser_assembler - Remove testing for Android
     # TODO: It seems like there may be a better way to handle the test issues
     # http://stackoverflow.com/questions/22055741/googletest-for-android-ndk
-    apply_patch /opt/roscpp_android/patches/laser_assembler.patch
+    #apply_patch /opt/roscpp_android/patches/laser_assembler.patch
 
     # Patch laser_filters - Remove testing for Android
     # TODO: It seems like there may be a better way to handle the test issues
     # http://stackoverflow.com/questions/22055741/googletest-for-android-ndk
     # https://source.android.com/reference/com/android/tradefed/testtype/GTest.html
-    apply_patch /opt/roscpp_android/patches/laser_filters.patch
+    #apply_patch /opt/roscpp_android/patches/laser_filters.patch
 
     # Patch camera_info_manager - remove testing for Android
     # TODO: It seems like there may be a better way to handle the test issues
     # http://stackoverflow.com/questions/22055741/googletest-for-android-ndk
     # https://source.android.com/reference/com/android/tradefed/testtype/GTest.html
-    apply_patch /opt/roscpp_android/patches/camera_info_manager.patch
+    #apply_patch /opt/roscpp_android/patches/camera_info_manager.patch
 
     # Patch cv_bridge - remove Python dependencies
     # TODO: https://github.com/ros-perception/vision_opencv/pull/55 merged, need to wait until new version (current 1.11.7)
-    apply_patch /opt/roscpp_android/patches/cv_bridge.patch
+    #apply_patch /opt/roscpp_android/patches/cv_bridge.patch
 
     # Patch robot_pose_ekf - Add bfl library cmake variables, also, remove tests
     # TODO: The correct way to handle this would be to create .cmake files for bfl and do a findpackage(orocos-bfl)
-    apply_patch /opt/roscpp_android/patches/robot_pose_ekf.patch
+    #apply_patch /opt/roscpp_android/patches/robot_pose_ekf.patch
 
     # Patch robot_state_publisher - Add ARCHIVE DESTINATION
     # TODO: Create PR to add ARCHIVE DESTINATION
-    apply_patch /opt/roscpp_android/patches/robot_state_publisher.patch
+    #apply_patch /opt/roscpp_android/patches/robot_state_publisher.patch
 
     # Patch moveit_core - Add fcl library cmake variables
     # TODO: The correct way to handle this would be to create .cmake files for fcl and do a findpackage(fcl)
-    apply_patch /opt/roscpp_android/patches/moveit_core.patch
+    #apply_patch /opt/roscpp_android/patches/moveit_core.patch
 
     # Patch moveit_core plugins - Add ARCHIVE DESTINATION
     # TODO: PR merged: https://github.com/ros-planning/moveit_core/pull/251
     # Wait for next release to remove (current 0.6.15)
-    apply_patch /opt/roscpp_android/patches/moveit_core_plugins.patch
+    #apply_patch /opt/roscpp_android/patches/moveit_core_plugins.patch
 
     # Patch camera_calibration_parsers - Fix yaml-cpp dependency
     # TODO: PR created: https://github.com/ros-perception/image_common/pull/36
-    apply_patch /opt/roscpp_android/patches/camera_calibration_parsers.patch
+    #apply_patch /opt/roscpp_android/patches/camera_calibration_parsers.patch
 
     # Patch image_view - Remove GTK definition
     # TODO: Fixed in https://github.com/ros-perception/image_pipeline/commit/829b7a1ab0fa1927ef3f17f66f9f77ac47dbaacc
     # Wait dor next release to remove (current 1.12.13)
-    apply_patch /opt/roscpp_android/patches/image_view.patch
+    #apply_patch /opt/roscpp_android/patches/image_view.patch
 
     # Patch urdf - Don't use pkconfig for android
     # TODO: PR created: https://github.com/ros/robot_model/pull/111
-    apply_patch /opt/roscpp_android/patches/urdf.patch
+    #apply_patch /opt/roscpp_android/patches/urdf.patch
 
     # Patch global_planner - Add angles dependency
     # TODO: PR merged: https://github.com/ros-planning/navigation/pull/359
     # Wait for next release to remove (current 1.12.4)
-    apply_patch /opt/roscpp_android/patches/global_planner.patch
+    #apply_patch /opt/roscpp_android/patches/global_planner.patch
 
     # Plugin specific patches
     if [ $use_pluginlib -ne 0 ]; then
@@ -318,26 +318,26 @@ echo
 
 # if the library doesn't exist, then build it
 [ -f $prefix/target/lib/libbz2.a ] || run_cmd build_library bzip2 $prefix/libs/bzip2
-[ -f $prefix/target/lib/libuuid.a ] || run_cmd build_library uuid $prefix/libs/uuid
+#[ -f $prefix/target/lib/libuuid.a ] || run_cmd build_library uuid $prefix/libs/uuid
 [ -f $prefix/target/lib/libboost_system.a ] || run_cmd copy_boost $prefix/libs/boost
-[ -f $prefix/target/lib/libPocoFoundation.a ] || run_cmd build_library_with_toolchain poco $prefix/libs/poco-1.6.1
+#[ -f $prefix/target/lib/libPocoFoundation.a ] || run_cmd build_library_with_toolchain poco $prefix/libs/poco-1.6.1
 [ -f $prefix/target/lib/libtinyxml.a ] || run_cmd build_library tinyxml $prefix/libs/tinyxml
 [ -f $prefix/target/lib/libconsole_bridge.a ] || run_cmd build_library console_bridge $prefix/libs/console_bridge
 [ -f $prefix/target/lib/liblz4.a ] || run_cmd build_library lz4 $prefix/libs/lz4-r124/cmake_unofficial
-[ -f $prefix/target/lib/libcurl.a ] || run_cmd build_library_with_toolchain curl $prefix/libs/curl-7.39.0
+#[ -f $prefix/target/lib/libcurl.a ] || run_cmd build_library_with_toolchain curl $prefix/libs/curl-7.39.0
 [ -f $prefix/target/include/urdf_model/model.h ] || run_cmd build_library urdfdom_headers $prefix/libs/urdfdom_headers
-[ -f $prefix/target/lib/liburdfdom_model.a ] || run_cmd build_library urdfdom $prefix/libs/urdfdom
-[ -f $prefix/target/lib/libiconv.a ] || run_cmd build_library_with_toolchain libiconv $prefix/libs/libiconv-1.14
-[ -f $prefix/target/lib/libxml2.a ] || run_cmd build_library_with_toolchain libxml2 $prefix/libs/libxml2-2.9.1
-[ -f $prefix/target/lib/libcollada-dom2.4-dp.a ] || run_cmd build_library collada_dom $prefix/libs/collada-dom-2.4.0
+#[ -f $prefix/target/lib/liburdfdom_model.a ] || run_cmd build_library urdfdom $prefix/libs/urdfdom
+#[ -f $prefix/target/lib/libiconv.a ] || run_cmd build_library_with_toolchain libiconv $prefix/libs/libiconv-1.14
+#[ -f $prefix/target/lib/libxml2.a ] || run_cmd build_library_with_toolchain libxml2 $prefix/libs/libxml2-2.9.1
+#[ -f $prefix/target/lib/libcollada-dom2.4-dp.a ] || run_cmd build_library collada_dom $prefix/libs/collada-dom-2.4.0
 [ -f $prefix/target/lib/libassimp.a ] || run_cmd build_library assimp $prefix/libs/assimp-3.1.1
 [ -f $prefix/target/lib/libeigen.a ] || run_cmd build_eigen $prefix/libs/eigen
 [ -f $prefix/target/lib/libqhullstatic.a ] || run_cmd build_library qhull $prefix/libs/qhull-2012.1
 [ -f $prefix/target/lib/liboctomap.a ] || run_cmd build_library octomap $prefix/libs/octomap-1.6.8
 [ -f $prefix/target/lib/libyaml-cpp.a ] || run_cmd build_library yaml-cpp $prefix/libs/yaml-cpp
-[ -f $prefix/target/lib/libopencv_core.a ] || run_cmd build_library opencv $prefix/libs/opencv-2.4.9
+#[ -f $prefix/target/lib/libopencv_core.a ] || run_cmd build_library opencv $prefix/libs/opencv-2.4.9
 [ -f $prefix/target/lib/libflann_cpp_s.a ] || run_cmd build_library flann $prefix/libs/flann
-[ -f $prefix/target/lib/libpcl_common.a ] || run_cmd build_library pcl $prefix/libs/pcl
+#[ -f $prefix/target/lib/libpcl_common.a ] || run_cmd build_library pcl $prefix/libs/pcl
 [ -f $prefix/target/lib/liborocos-bfl.a ] || run_cmd build_library bfl $prefix/libs/bfl-0.7.0
 [ -f $prefix/target/lib/liborocos-kdl.a ] || run_cmd build_library orocos_kdl $prefix/libs/orocos_kdl-1.3.0
 [ -f $prefix/target/lib/liblog4cxx.a ] || run_cmd build_library_with_toolchain log4cxx $prefix/libs/apache-log4cxx-0.10.0
